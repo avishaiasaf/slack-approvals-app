@@ -5,8 +5,6 @@ const getUserEmailByID = async (userId, client) => {
             user: userId,
         });
 
-        console.log("Emails", result.user.profile.email);
-
         return result.user.profile.email;
     } catch (error) {
         console.error(error);

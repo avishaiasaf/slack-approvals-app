@@ -7,8 +7,9 @@ const {
     Elements,
     Md,
     Button,
+    Header,
 } = require("slack-block-builder");
-const { Enums } = require("../../utilities");
+const { Enums, HelperFunctions } = require("../../utilities");
 const Buttons = Enums.APP_HOME.BUTTONS;
 
 module.exports = (username, approvedInvoices) => {
@@ -41,22 +42,26 @@ module.exports = (username, approvedInvoices) => {
         );
     });
     return HomeTab({
-        callbackId: "tasks-home",
+        callbackId: Enums.APP_HOME.PENDING_APPROVAL.CALLBACK_ID,
         privateMetaData: "completed",
     })
         .blocks(
-            Section({ text: `Hi ${username}, what can I do for you today?` }),
+            Section({
+                text: `Hi ${HelperFunctions.titleizeUserName(
+                    username
+                )}, what can I do for you today?`,
+            }),
             Actions({ blockId: "task-creation-actions" }).elements(
+                Elements.Button({
+                    text: Buttons.GET_PENDING_APPROVALS.text,
+                })
+                    .value(Buttons.GET_PENDING_APPROVALS.value)
+                    .actionId(Buttons.GET_PENDING_APPROVALS.actionId),
                 Elements.Button({
                     text: Buttons.GET_APPROVED.text,
                 })
                     .value(Buttons.GET_APPROVED.value)
                     .actionId(Buttons.GET_APPROVED.actionId),
-                Elements.Button({
-                    text: Buttons.SHOW_PENDING_APPROVALS.text,
-                })
-                    .value(Buttons.SHOW_PENDING_APPROVALS.value)
-                    .actionId(Buttons.SHOW_PENDING_APPROVALS.actionId),
                 Elements.Button({ text: Buttons.GET_VENDOR_DETAILS.text })
                     .value(Buttons.GET_VENDOR_DETAILS.value)
                     .actionId(Buttons.GET_VENDOR_DETAILS.actionId),
@@ -65,6 +70,7 @@ module.exports = (username, approvedInvoices) => {
                     .actionId(Buttons.GET_INVOICE_DETAILS.actionId)
             )
         )
+        .blocks(Header({ text: "Invoices Pending Your Approval" }), Divider())
         .blocks(...invoicesBlocks)
         .buildToJSON();
 };

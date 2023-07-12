@@ -36,6 +36,10 @@ app.use(async ({ logger, context, next }) => {
     await next();
 });
 
+app.error(async (error) => {
+    console.log("Error Occurred", error);
+});
+
 (async () => {
     try {
         await app.start(process.env.PORT || 3000);

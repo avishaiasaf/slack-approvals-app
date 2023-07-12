@@ -21,7 +21,7 @@ const getVendorBillsChartCallback = async ({ ack, body, logger, view }) => {
     const modal = await vendorBillsChartModal(chartUrl, String(vendorId));
 
     await ack({
-        response_action: "push",
+        response_action: "update",
         view: modal,
     });
 };

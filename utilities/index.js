@@ -3,6 +3,7 @@ const { OauthRequest } = require("./netsuite-oauth-request");
 const Auth = require("./netsuite-auth");
 const createBarChart = require("./create-bar-chart");
 const slackHelperFunctions = require("./slack-helper-functions");
+const HelperFunctions = require("./js-utils");
 
 module.exports = {
     Enums,
@@ -10,4 +11,5 @@ module.exports = {
     Auth,
     createBarChart,
     slackHelperFunctions,
+    HelperFunctions,
 };

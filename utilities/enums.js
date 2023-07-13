@@ -11,11 +11,11 @@ module.exports = {
                 actionId: "app-home-get-approved",
                 text: "Approved By Me",
             },
-            // SHOW_PENDING_APPROVALS: {
-            //     value: "app-home-show-pending-approvals",
-            //     actionId: "app-home-show-pending-approvals",
-            //     text: "Show My Approvals",
-            // },
+            WORKATO_WEBHOOK: {
+                value: "app-home-workato-webhook",
+                actionId: "app-home-workato-webhook",
+                text: "Workato Webhook",
+            },
             GET_VENDOR_DETAILS: {
                 value: "app-home-get-vendor-details",
                 actionId: "app-home-get-vendor-details",

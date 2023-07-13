@@ -5,7 +5,6 @@ module.exports = async (results, vendorPlaceholder) => {
     console.log("results", results);
     return Modal({
         title: "Get Invoice Details",
-        submit: "Get Invoices",
         callbackId: "get_invoice_details",
     })
         .blocks(

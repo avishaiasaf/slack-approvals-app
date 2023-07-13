@@ -5,7 +5,7 @@ const Fields = Enums.APP_HOME.FIELDS;
 
 module.exports = Modal({
     title: "Get Vendor Details",
-    submit: "Get Invoices",
+    submit: "Get Spend",
     callbackId: Enums.MODALS.GET_VENDOR_DEATILS_MODAL.callbackId,
 })
     .blocks(

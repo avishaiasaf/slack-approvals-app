@@ -16,7 +16,7 @@ const getInvoiceDetailsShowFieldsCallback = async ({ ack, payload, body, client,
         }
     );
 
-    await client.views.update({
+    await client.views.push({
         user_id: body.user.id,
         view: await getInvoiceDetailsInvoice(response[0]),
         view_id: body.view.id,

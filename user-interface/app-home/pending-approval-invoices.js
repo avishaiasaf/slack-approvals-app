@@ -67,7 +67,10 @@ module.exports = (username, approvedInvoices) => {
                     .actionId(Buttons.GET_VENDOR_DETAILS.actionId),
                 Elements.Button({ text: Buttons.GET_INVOICE_DETAILS.text })
                     .value(Buttons.GET_INVOICE_DETAILS.value)
-                    .actionId(Buttons.GET_INVOICE_DETAILS.actionId)
+                    .actionId(Buttons.GET_INVOICE_DETAILS.actionId),
+                Elements.Button({ text: Buttons.WORKATO_WEBHOOK.text })
+                    .value(Buttons.WORKATO_WEBHOOK.value)
+                    .actionId(Buttons.WORKATO_WEBHOOK.actionId)
             )
         )
         .blocks(Header({ text: "Invoices Pending Your Approval" }), Divider())

@@ -1,0 +1,15 @@
+const { Md, HomeTab, Header, Divider, Section, Actions, Elements } = require("slack-block-builder");
+const { Enums, HelperFunctions } = require("../../utilities");
+const Buttons = Enums.APP_HOME.BUTTONS;
+const header = require("../partials/app-home-nav-bar");
+const approvalsNavBar = require("../partials/app-home-approval-nav-bar");
+
+module.exports = (username) => {
+    return HomeTab({
+        callbackId: Enums.APP_HOME.APPROVED.CALLBACK_ID,
+        privateMetaData: "completed",
+    })
+        .blocks(...header(Enums.TABS.ANOTHER_APP.value, username))
+        .blocks(Header({ text: "Another App" }), Divider())
+        .buildToJSON();
+};

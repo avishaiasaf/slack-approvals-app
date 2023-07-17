@@ -6,10 +6,11 @@ const getWorkatoWebhookCallback = async ({ ack, payload, body, client, logger, c
         await ack();
         console.log("workato webhook clicked", payload, body);
         const invoices = [{ name: "name", id: "id" }];
+        const userName = "Workato" + HelperFunctions.titleizeUserName(body.user.name);
         const webhookBody = {
             event_type: "UPDATE_HOME",
             value: {
-                view: HomeTab("Workato User", invoices),
+                view: HomeTab(userName, invoices),
                 view_id: body.view.id,
                 token: context.botToken,
             },

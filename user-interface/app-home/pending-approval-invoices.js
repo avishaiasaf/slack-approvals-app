@@ -11,6 +11,8 @@ const {
 } = require("slack-block-builder");
 const { Enums, HelperFunctions } = require("../../utilities");
 const Buttons = Enums.APP_HOME.BUTTONS;
+const header = require("../partials/app-home-nav-bar");
+const approvalsNavBar = require("../partials/app-home-approval-nav-bar");
 
 module.exports = (username, approvedInvoices) => {
     invoicesBlocks = [];
@@ -27,16 +29,17 @@ module.exports = (username, approvedInvoices) => {
             //Section.accessory(Elements.Button({ test: "test" }).actionId("test")).text("bla bla"),
             Actions({ blockId: "approve-invoice-" + invoice.name }).elements(
                 Elements.Button({
-                    text: "Approve",
+                    text: "👍🏻 Approve",
                 })
                     .value("approve-invoice-" + invoice.name)
                     .actionId("approve-invoice-" + invoice.name)
                     .primary(true),
                 Elements.Button({
-                    text: "Reject",
+                    text: "👎🏻 Reject",
                 })
                     .value("reject-invoice-" + invoice.name)
                     .actionId("reject-invoice-" + invoice.name)
+                    .danger(true)
             ),
             Divider()
         );
@@ -46,32 +49,8 @@ module.exports = (username, approvedInvoices) => {
         privateMetaData: "completed",
     })
         .blocks(
-            Section({
-                text: `Hi ${HelperFunctions.titleizeUserName(
-                    username
-                )}, what can I do for you today?`,
-            }),
-            Actions({ blockId: "task-creation-actions" }).elements(
-                Elements.Button({
-                    text: Buttons.GET_PENDING_APPROVALS.text,
-                })
-                    .value(Buttons.GET_PENDING_APPROVALS.value)
-                    .actionId(Buttons.GET_PENDING_APPROVALS.actionId),
-                Elements.Button({
-                    text: Buttons.GET_APPROVED.text,
-                })
-                    .value(Buttons.GET_APPROVED.value)
-                    .actionId(Buttons.GET_APPROVED.actionId),
-                Elements.Button({ text: Buttons.GET_VENDOR_DETAILS.text })
-                    .value(Buttons.GET_VENDOR_DETAILS.value)
-                    .actionId(Buttons.GET_VENDOR_DETAILS.actionId),
-                Elements.Button({ text: Buttons.GET_INVOICE_DETAILS.text })
-                    .value(Buttons.GET_INVOICE_DETAILS.value)
-                    .actionId(Buttons.GET_INVOICE_DETAILS.actionId),
-                Elements.Button({ text: Buttons.WORKATO_WEBHOOK.text })
-                    .value(Buttons.WORKATO_WEBHOOK.value)
-                    .actionId(Buttons.WORKATO_WEBHOOK.actionId)
-            )
+            ...header(Enums.TABS.APPROVAL_APP.value, username),
+            ...approvalsNavBar(Buttons.GET_PENDING_APPROVALS.actionId)
         )
         .blocks(Header({ text: "Invoices Pending Your Approval" }), Divider())
         .blocks(...invoicesBlocks)

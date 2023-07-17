@@ -3,4 +3,5 @@ module.exports = {
     vendorBillsChartModal: require("./vendor-bills-chart-modal"),
     getInvoiceDetails: require("./get-invoice-details-modal"),
     getInvoiceDetailsInvoice: require("./get-invoice-details-invoice-modal"),
+    getDelegationApprovalModal: require("./delegate-approval-modal"),
 };

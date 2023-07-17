@@ -1,6 +1,8 @@
 const { Md, HomeTab, Header, Divider, Section, Actions, Elements } = require("slack-block-builder");
 const { Enums, HelperFunctions } = require("../../utilities");
 const Buttons = Enums.APP_HOME.BUTTONS;
+const header = require("../partials/app-home-nav-bar");
+const approvalsNavBar = require("../partials/app-home-approval-nav-bar");
 
 module.exports = (username, approvedInvoices) => {
     invoicesBlocks = [];
@@ -25,32 +27,8 @@ module.exports = (username, approvedInvoices) => {
         privateMetaData: "completed",
     })
         .blocks(
-            Section({
-                text: `Hi ${HelperFunctions.titleizeUserName(
-                    username
-                )}, what can I do for you today?`,
-            }),
-            Actions({ blockId: "task-creation-actions" }).elements(
-                Elements.Button({
-                    text: Buttons.GET_PENDING_APPROVALS.text,
-                })
-                    .value(Buttons.GET_PENDING_APPROVALS.value)
-                    .actionId(Buttons.GET_PENDING_APPROVALS.actionId),
-                Elements.Button({
-                    text: Buttons.GET_APPROVED.text,
-                })
-                    .value(Buttons.GET_APPROVED.value)
-                    .actionId(Buttons.GET_APPROVED.actionId),
-                Elements.Button({ text: Buttons.GET_VENDOR_DETAILS.text })
-                    .value(Buttons.GET_VENDOR_DETAILS.value)
-                    .actionId(Buttons.GET_VENDOR_DETAILS.actionId),
-                Elements.Button({ text: Buttons.GET_INVOICE_DETAILS.text })
-                    .value(Buttons.GET_INVOICE_DETAILS.value)
-                    .actionId(Buttons.GET_INVOICE_DETAILS.actionId),
-                Elements.Button({ text: Buttons.WORKATO_WEBHOOK.text })
-                    .value(Buttons.WORKATO_WEBHOOK.value)
-                    .actionId(Buttons.WORKATO_WEBHOOK.actionId)
-            )
+            ...header(Enums.TABS.APPROVAL_APP.value, username),
+            ...approvalsNavBar(Buttons.GET_APPROVED.actionId)
         )
         .blocks(Header({ text: "Previously Approved Invoices" }), Divider())
         .blocks(...invoicesBlocks)
